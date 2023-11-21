@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState,useEffect,useContext } from "react";
+import { DataContext } from '../DataContext';
 
-const HomeComponent = () => {
+const HomeComponent = (props) => {
+  const { user, setUser } = useContext(DataContext);
 
     return (
         <div>
-            <p>Home</p>
+            {console.log(user)}
+            {user
+                && <p>user logged in</p>}
         </div >
 
     )

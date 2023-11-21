@@ -1,13 +1,18 @@
+import React, { useContext } from 'react';
 import './LoginComponent.css';
 import { authentication } from '../firebase';
-
-import { useState } from 'react';
+import { useNavigate  } from 'react-router-dom';
+import { DataContext } from '../DataContext';
+import { useState,useEffect } from 'react';
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 
 function LoginComponent() {
+    
     const [phoneNumber, setphoneNumber] = useState();
     const [otp, setOTP] = useState();
     const [isOTPSent, setIsOTPSent] = useState(false);
+    const navigate = useNavigate();
+    const { user, setUser } = useContext(DataContext);
 
     const generateRecaptcha = () => {
         window.recaptchaVerifier = new RecaptchaVerifier(authentication, 'recaptcha-form', {
@@ -48,8 +53,8 @@ function LoginComponent() {
             let confirmationResult = window.confirmationResult;
             confirmationResult.confirm(otp).then((result) => {
                 // User signed in successfully.
-                const user = result.user;
-                console.log(user);
+
+                login(result.user);
                 // ...
             }).catch((error) => {
                 // User couldn't sign in (bad verification code?)
@@ -57,6 +62,19 @@ function LoginComponent() {
             });
         }
     }
+
+    
+      const login = (userData) => {
+        // Perform authentication logic, get user data and token
+        setUser(userData);
+        localStorage.setItem('authenticatedUser', JSON.stringify(userData)); // Store user data in localStorage
+        navigate('/home');
+      };
+    
+      const logout = () => {
+        setUser(null);
+        localStorage.removeItem('user'); // Clear user data from localStorage
+      };
 
     signInWithPhoneNumber(authentication, phoneNumber)
         .then((confirmationResult) => {
