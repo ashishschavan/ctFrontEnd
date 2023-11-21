@@ -4,9 +4,13 @@ import LoginComponent from './LoginComponent/LoginComponent';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import RoutesComponent from './RoutesComponent';
 import HeadNavComponent from './HeadNavComponent/HeadNavComponent';
-import { DataProvider } from './DataContext';
+import { DataContext,DataProvider } from './DataContext';
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from "react";
 
 function App() {
+
+ 
   return (
     <div className="App ">
       <DataProvider>

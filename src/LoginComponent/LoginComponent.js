@@ -71,10 +71,7 @@ function LoginComponent() {
         navigate('/home');
       };
     
-      const logout = () => {
-        setUser(null);
-        localStorage.removeItem('user'); // Clear user data from localStorage
-      };
+
 
     signInWithPhoneNumber(authentication, phoneNumber)
         .then((confirmationResult) => {

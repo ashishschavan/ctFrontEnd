@@ -9,11 +9,9 @@ const HeadNavComponent = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(DataContext);
 
-
   const logout = () => {
     setUser(null);
     localStorage.removeItem('authenticatedUser'); // Clear user data from localStorage
-    navigate("/login");
   };
 
   return (
@@ -27,7 +25,7 @@ const HeadNavComponent = () => {
         <div className="collapse navbar-collapse justify-content-end col" id="navbarSupportedContent">
           <ul className="navbar-nav mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/rentout">Give On Rent</Link>
+              <Link className="nav-link active" aria-current="page" to="/profile">Profile</Link>
             </li>
             {user ?
               <li className="nav-item">
