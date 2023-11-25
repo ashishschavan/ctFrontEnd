@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useNavigate  } from 'react-router-dom';
-import { DataContext } from '../DataContext';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from '../actions';
 
 import './HeadNavComponent.css'
 const HeadNavComponent = () => {
-
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.userDetails);
   const navigate = useNavigate();
-  const { user, setUser } = useContext(DataContext);
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('authenticatedUser'); // Clear user data from localStorage
+    dispatch(setUserDetails(null));
   };
 
   return (
@@ -27,7 +28,7 @@ const HeadNavComponent = () => {
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/profile">Profile</Link>
             </li>
-            {user ?
+            {userDetails ?
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" onClick={logout}>Log Out</Link>
               </li> : <li className="nav-item">
